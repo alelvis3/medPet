@@ -1,0 +1,7 @@
+package br.com.unip.medPet.domain.medico;
+
+public enum Especialidade {
+
+    CARDIOLOGIA,CLINICO_GERAL,ENDOCRINOLOGIA,NEUROLOGIA,ODONTOLOGIA,OFTALMOLOGIA,ONCOLOGIA,ORTOPEDIA;
+
+}
