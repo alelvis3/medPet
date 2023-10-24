@@ -1,6 +1,7 @@
 package br.com.unip.medPet.controller;
 
 import br.com.unip.medPet.domain.paciente.animal.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("animal")
-//@SecurityRequirement(name = "bearer-key")
+@SecurityRequirement(name = "bearer-key")
 public class AnimalController {
     @Autowired
     private AnimalRepository repository;

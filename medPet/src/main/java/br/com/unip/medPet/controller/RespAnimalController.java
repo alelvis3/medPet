@@ -1,8 +1,8 @@
 package br.com.unip.medPet.controller;
 
 import br.com.unip.medPet.domain.paciente.animal.AnimalRepository;
-import br.com.unip.medPet.domain.paciente.animal.DadosListagemAnimal;
 import br.com.unip.medPet.domain.paciente.responsavel.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
 @RestController
 @RequestMapping("responsavel")
-//@SecurityRequirement(name = "bearer-key")
+@SecurityRequirement(name = "bearer-key")
 public class RespAnimalController {
     @Autowired
     private RespAnimalRepository respAnimalRepository;
@@ -31,12 +32,14 @@ public class RespAnimalController {
         var uri = uriBuilder.path("/responsavel/{id}").buildAndExpand(respAnimal.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoRespAnimal(respAnimal));
     }
+
     @GetMapping
-    public ResponseEntity<Page<DadosListagemRespAnimal>> listar(@PageableDefault(size = 10, sort = {"nome"})Pageable paginacao){
-    var page= respAnimalRepository.findAllByAtivoTrue(paginacao).map(DadosListagemRespAnimal::new);
+    public ResponseEntity<Page<DadosListagemRespAnimal>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = respAnimalRepository.findAllByAtivoTrue(paginacao).map(DadosListagemRespAnimal::new);
 
         return ResponseEntity.ok(page);
     }
+
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoRespAnimal dados) {
@@ -45,6 +48,7 @@ public class RespAnimalController {
 
         return ResponseEntity.ok(new DadosDetalhamentoRespAnimal(respAnimal));
     }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
@@ -52,6 +56,7 @@ public class RespAnimalController {
         respAnimal.excluir();
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
         var respAnimal = respAnimalRepository.getReferenceById(id);
