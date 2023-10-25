@@ -1,0 +1,2 @@
+ALTER TABLE medpet.usuarios
+CHANGE COLUMN senha senha VARCHAR(255) NOT NULL ;
